@@ -24,12 +24,12 @@ public class AStar extends Algorithm{
 
         while (!pendingPoints.isEmpty()) {
             Point actual = pendingPoints.poll();
-            if (!wasVisited(actual)) visitedPoints.add(actual);
+            if (notVisited(actual)) visitedPoints.add(actual);
             if (actual.getX() == end.getX() && actual.getY() == end.getY()) {
                 return new Result("A*", this.heuristic, actual.getPath(), visitedPoints.size(), actual.getTime());
             } else {
                 for (Point p : getAdjacent(actual)) {
-                    if (!wasVisited(p)){
+                    if (notVisited(p)){
                             calculateTime(actual, p);
                             calculateHeuristic(actual, p, heuristic);
                             addToPath(actual, p);

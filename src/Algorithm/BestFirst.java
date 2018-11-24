@@ -23,13 +23,13 @@ public class BestFirst extends Algorithm {
     public Result execute() {
         while (!pendingPoints.isEmpty()) {
             Point actual = pendingPoints.poll();
-            if (!wasVisited(actual)) visitedPoints.add(actual);
+            if (notVisited(actual)) visitedPoints.add(actual);
             if (actual.getX() == end.getX() && actual.getY() == end.getY()) {
                 return new Result("BestFirst", this.heuristic, actual.getPath(), visitedPoints.size(), actual.getTime());
             }
             else {
                 for (Point p : getAdjacent(actual)) {
-                    if (!wasVisited(p)){
+                    if (notVisited(p)){
                         if(!isPending(p)) {
                         addToPath(actual, p);
                         calculateTime(actual, p);

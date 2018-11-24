@@ -35,9 +35,8 @@ import java.util.List;
 
 
             public static void main(String[] args) {
-                int x1 = 0, y1 = 0, x2 = 9, y2 = 9;
-                Point c1 = new Point(x1, y1, map[x1][y1]);
-                Point c2 = new Point(x2, y2, map[x2][y2]);
+                Point c1 = new Point(0, 0, map[0][0]);
+                Point c2 = new Point(9, 9, map[9][9]);
                 List<String> heuristics = new LinkedList<>();
                 heuristics.add("cost");
                 heuristics.add("time");

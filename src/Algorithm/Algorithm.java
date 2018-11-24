@@ -18,20 +18,17 @@ class Algorithm {
 
 
     float h1(Point act,Point p){
-        p.addToHeuristicVal(act.getHeuristicVal()+p.getVal());
-        return act.getHeuristicVal()+p.getVal();
+        return  act.getVal()+p.getVal();
     }
 
     float h2(Point act,Point p){
-        if(p.getVal()-act.getVal()>=0) return(act.getTime()+1+(p.getVal()-act.getVal()));
-        else return(act.getTime()+0.5F);
-
+        return act.getVal()+p.getVal();
     }
 
     float h3(Point act,Point p){
-        return 2;
-
+        return act.getVal()+p.getVal();
     }
+
     void addToPath(Point act,Point p){
         ArrayList<Point> tempPath= act.getPath();
         p.attachToPath(tempPath);
@@ -42,11 +39,11 @@ class Algorithm {
         else p.setTime(act.getTime()+0.5F);
     }
 
-    boolean wasVisited(Point p) {
+    boolean notVisited(Point p) {
         for (Point x : visitedPoints) {
-            if (x.getX() == p.getX() && x.getY() == p.getY()) return true;
+            if (x.getX() == p.getX() && x.getY() == p.getY()) return false;
         }
-        return false;
+        return true;
     }
 
     ArrayList<Point> getAdjacent(Point actual) {
