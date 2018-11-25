@@ -21,7 +21,6 @@ public class AStar extends Algorithm{
 }
 
     public Result execute() {
-
         while (!pendingPoints.isEmpty()) {
             Point actual = pendingPoints.poll();
             if (notVisited(actual)) visitedPoints.add(actual);

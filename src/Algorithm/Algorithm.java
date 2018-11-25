@@ -18,15 +18,16 @@ class Algorithm {
 
 
     float h1(Point act,Point p){
-        return  act.getVal()+p.getVal();
+        //TODO: Estimate time
+
     }
 
     float h2(Point act,Point p){
-        return act.getVal()+p.getVal();
+        //TODO: Estimate Cost
     }
 
     float h3(Point act,Point p){
-        return act.getVal()+p.getVal();
+        //TODO: Estimate both
     }
 
     void addToPath(Point act,Point p){
