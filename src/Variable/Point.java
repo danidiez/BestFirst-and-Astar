@@ -6,9 +6,9 @@ public class Point implements Comparable<Point>{
     private int x;
     private int y;
     private int val;
-    private float heuristicVal;
+    private double heuristicVal;
     private ArrayList<Point> path;
-    private float time;
+    private double time;
 
     public Point(int x, int y, int val){
         this.x = x;
@@ -36,17 +36,17 @@ public class Point implements Comparable<Point>{
         return this.path;
     }
 
-   // public float getHeuristicVal() { return heuristicVal; }
+    public double getHeuristicVal() { return heuristicVal; }
 
-    public float getTime() {
+    public double getTime() {
         return time;
     }
 
-    public void setTime(float time) {
+    public void SetTime(double time) {
         this.time = time;
     }
 
-    public void addToHeuristicVal(float heuristicVal) {
+    public void setHeuristicVal(double heuristicVal) {
         this.heuristicVal += heuristicVal;
     }
 
@@ -55,14 +55,9 @@ public class Point implements Comparable<Point>{
         }
 
     @Override
-    public String toString() {
-        return  "("+x+","+y+")";
-    }
-
-    @Override
     public int compareTo(Point o) {
-        if(this.heuristicVal>o.heuristicVal) return 1;
-        else if(this.heuristicVal<=heuristicVal) return -1;
+        if (this.heuristicVal > o.heuristicVal) return 1;
+        else if (this.heuristicVal <= heuristicVal) return -1;
         return 0;
     }
 }

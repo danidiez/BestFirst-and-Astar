@@ -1,5 +1,6 @@
 package Algorithm;
 
+import Variable.Data;
 import Variable.Point;
 import Variable.Result;
 
@@ -7,9 +8,9 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 public class AStar extends Algorithm{
 
-    public AStar(String heuristic, int[][] map, Point start, Point end, int heigth, int width) {
+    public AStar(String heuristic, Data data, Point start, Point end, int heigth, int width) {
         this.heuristic = heuristic;
-        this.map = map;
+        this.map = data;
         this.start = start;
         this.end = end;
         this.heigth = heigth;
@@ -25,11 +26,11 @@ public class AStar extends Algorithm{
             Point actual = pendingPoints.poll();
             if (notVisited(actual)) visitedPoints.add(actual);
             if (actual.getX() == end.getX() && actual.getY() == end.getY()) {
-                return new Result("A*", this.heuristic, actual.getPath(), visitedPoints.size(), actual.getTime());
+                return new Result(map,"A*", this.heuristic, actual.getPath(), visitedPoints, actual.getTime());
             } else {
                 for (Point p : getAdjacent(actual)) {
                     if (notVisited(p)){
-                            calculateTime(actual, p);
+                            calculateTotalTime(actual, p);
                             calculateHeuristic(actual, p, heuristic);
                             addToPath(actual, p);
                             pendingPoints.add(p);
@@ -40,22 +41,22 @@ public class AStar extends Algorithm{
         return result;
         }
     private void calculateHeuristic(Point act, Point p, String heuristic) {
-        float result;
+        double result;
         switch (heuristic) {
             case "h1":
                 result = h1(act, p);
                 result += p.getTime();
-                p.addToHeuristicVal(result);
+                p.setHeuristicVal(result);
                 break;
             case "h2":
                 result = h2(act, p);
                 result +=  p.getTime();
-                p.addToHeuristicVal(result);
+                p.setHeuristicVal(result);
                 break;
             case "h3":
                 result = h3(act, p);
                 result +=  p.getTime();
-                p.addToHeuristicVal(result);
+                p.setHeuristicVal(result);
                 break;
         }
     }

@@ -1,5 +1,6 @@
 package Algorithm;
 
+import Variable.Data;
 import Variable.Point;
 import Variable.Result;
 
@@ -8,7 +9,7 @@ import java.util.PriorityQueue;
 
 class Algorithm {
      String heuristic;
-     int[][] map;
+     Data map;
      ArrayList<Point> visitedPoints;
      PriorityQueue<Point> pendingPoints;
      int heigth, width;
@@ -17,17 +18,19 @@ class Algorithm {
      Result result;
 
 
-    float h1(Point act,Point p){
-        //TODO: Estimate time
-
+    double h1(Point act,Point next){
+        double nextDx = end.getX()-next.getX();
+        double nextDy = end.getY()-next.getY();
+        return act.getTime()+calculateThisTime(act,next)+(2*Math.sqrt(Math.pow(nextDx,2)+Math.pow(nextDy,2)));
     }
 
-    float h2(Point act,Point p){
-        //TODO: Estimate Cost
+    double h2(Point act,Point next) {
+        double nextDx = end.getX() - next.getX();
+        double nextDy = end.getY() - next.getY();
+        return act.getHeuristicVal()+ (Math.sqrt(Math.pow(nextDx,2)+Math.pow(nextDy,2)));
     }
-
-    float h3(Point act,Point p){
-        //TODO: Estimate both
+    double h3(Point act,Point next){
+        return act.getHeuristicVal()+calculateThisTime(act,next);
     }
 
     void addToPath(Point act,Point p){
@@ -35,9 +38,13 @@ class Algorithm {
         p.attachToPath(tempPath);
     }
 
-    void calculateTime(Point act, Point p) {
-        if(p.getVal()-act.getVal()>=0) p.setTime(act.getTime()+1+(p.getVal()-act.getVal()));
-        else p.setTime(act.getTime()+0.5F);
+    double calculateThisTime(Point act, Point next){
+        if(next.getVal()-act.getVal()>=0) return 1+(next.getVal()-act.getVal());
+        else return 0.5F;
+    }
+    void calculateTotalTime(Point act, Point next) {
+        if(next.getVal()-act.getVal()>=0) next.SetTime(act.getTime()+1+(next.getVal()-act.getVal()));
+        else next.SetTime(act.getTime()+0.5F);
     }
 
     boolean notVisited(Point p) {
@@ -51,10 +58,10 @@ class Algorithm {
         ArrayList<Point> adjacents = new ArrayList<>();
         int x = actual.getX();
         int y = actual.getY();
-        if ((actual.getX() - 1 >= 0) && (map[x - 1][y]) != -1) adjacents.add(new Point(x - 1, y, map[x - 1][y]));
-        if ((actual.getX() + 1 < heigth) && (map[x + 1][y]) != -1) adjacents.add(new Point(x + 1, y, map[x + 1][y]));
-        if ((actual.getY() + 1 < width) && (map[x][y + 1]) != -1) adjacents.add(new Point(x, y + 1, map[x][y + 1]));
-        if ((actual.getY() - 1 >= 0) && (map[x][y - 1]) != -1) adjacents.add(new Point(x, y - 1, map[x][y - 1]));
+        if ((actual.getX() - 1 >= 0) && (map.getData(x - 1,y) != -1)) adjacents.add(new Point(x - 1, y, map.getData(x - 1,y)));
+        if ((actual.getX() + 1 < heigth) && (map.getData(x + 1,y) != -1)) adjacents.add(new Point(x + 1, y, map.getData(x + 1,y)));
+        if ((actual.getY() + 1 < width) && (map.getData(x,y + 1) != -1)) adjacents.add(new Point(x, y + 1, map.getData(x,y + 1)));
+        if ((actual.getY() - 1 >= 0) && (map.getData(x,y - 1) != -1)) adjacents.add(new Point(x, y - 1, map.getData(x,y - 1)));
         return adjacents;
     }
 

@@ -1,14 +1,17 @@
 package Variable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Result{
     private String algorithm, heuristic;
     private ArrayList<Point> path;
-    private int explored;
-    private float time;
+    private ArrayList<Point> explored;
+    private double time;
+    private Data data;
 
-    public Result(String algorithm,String heurisic ,ArrayList<Point> path, int explored,float time) {
+    public Result(Data data,String algorithm,String heurisic ,ArrayList<Point> path, ArrayList<Point> explored,double time) {
+        this.data = data;
         this.algorithm = algorithm;
         this.heuristic = heurisic;
         this.path = path;
@@ -18,12 +21,24 @@ public class Result{
 
     @Override
     public String toString() {
-        return "algorithm='" + algorithm + '\n' +
-                ", heuristic='" + heuristic + '\n' +
-                ", path=" + path + '\n'+
-                ", explored=" + explored +
-                ", time=" + time
+        char[][] resultPath =data.getCharMap();
+        StringBuilder resultMap = new StringBuilder();
+        for(Point exp:explored){
+            resultPath[exp.getX()][exp.getY()]='*';
+        }
+        for(Point p:path){
+                resultPath[p.getX()][p.getY()]='o';
+        }
+        for(int x=0; x<data.getHeight();x++){
+            resultMap.append(Arrays.toString(resultPath[x])).append("\n");
+        }
+        return "algorithm: " + algorithm + '\n' +
+                "heuristic: " + heuristic + '\n' +
+                resultMap +
+                "num of explored: " + explored.size() +
+                ", time=" + time+"\n"
                 ;
+
     }
 }
 
