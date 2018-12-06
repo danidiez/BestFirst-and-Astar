@@ -35,23 +35,24 @@ public class Ex1_IA {
 
 
             public static void main(String[] args) {
-                Point c1 = new Point(0, 0, map[0][0]);
-                Point c2 = new Point(9, 9, map[9][9]);
+                Point c1,c2;
                 List<String> heuristics = new LinkedList<>();
-                heuristics.add("time+distance");
+                heuristics.add("diference+distance");
                 heuristics.add("distance");
                 heuristics.add("time");
 
                 Data data = new Data(map);
                 for (String h : heuristics) {
+                    c1 = new Point(0, 0, map[0][0]);
+                    c2 = new Point(9, 9, map[9][9]);
+
                     BestFirst b = new BestFirst(h, data, c1, c2, map.length, map[0].length);
-                    Result result = b.execute();
-                    System.out.println(result);
-/*
+                    Result result1 = b.execute();
+                    System.out.println(result1);
+
                     AStar a = new AStar(h, data, c1, c2, map.length, map[0].length);
-                    result = a.execute();
-                    System.out.println(result);
-  */
+                    Result result2 = a.execute();
+                    System.out.println(result2);
                 }
 
             }

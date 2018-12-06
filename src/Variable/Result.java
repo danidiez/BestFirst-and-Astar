@@ -9,14 +9,16 @@ public class Result{
     private ArrayList<Point> explored;
     private double time;
     private Data data;
+    private int numExplored;
 
-    public Result(Data data,String algorithm,String heurisic ,ArrayList<Point> path, ArrayList<Point> explored,double time) {
+    public Result(Data data,String algorithm,String heurisic ,ArrayList<Point> path, ArrayList<Point> explored,int numExplored,double time) {
         this.data = data;
         this.algorithm = algorithm;
         this.heuristic = heurisic;
         this.path = path;
         this.explored = explored;
         this.time = time;
+        this.numExplored = numExplored;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class Result{
         return "algorithm: " + algorithm + '\n' +
                 "heuristic: " + heuristic + '\n' +
                 resultMap +
-                "num of explored: " + explored.size() +
+                "num of explored: " + numExplored +
                 ", time=" + time+"\n"
                 ;
 

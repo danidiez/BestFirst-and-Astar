@@ -7,12 +7,12 @@ import java.util.PriorityQueue;
 public class BestFirst extends Algorithm {
 
 
-    public BestFirst(String heuristic, Data map, Point start, Point end, int heigth, int width) {
+    public BestFirst(String heuristic, Data map, Point start, Point end, int height, int width) {
         this.heuristic = heuristic;
         this.map = map;
         this.start = start;
         this.end = end;
-        this.heigth = heigth;
+        this.height = height;
         this.width = width;
         this.pendingPoints = new PriorityQueue<>();
         this.visitedPoints = new ArrayList<>();
@@ -21,11 +21,13 @@ public class BestFirst extends Algorithm {
     }
 
     public Result execute() {
+        int numExplored = 0;
         while (!pendingPoints.isEmpty()) {
             Point actual = pendingPoints.poll();
+            numExplored++;
             if (notVisited(actual)) visitedPoints.add(actual);
             if (actual.getX() == end.getX() && actual.getY() == end.getY()) {
-                return new Result(map,"BestFirst", this.heuristic, actual.getPath(), visitedPoints, actual.getTime());
+                return new Result(map,"BestFirst", this.heuristic, actual.getPath(), visitedPoints, numExplored, actual.getTime());
             }
             else {
                 for (Point p : getAdjacent(actual)) {
@@ -33,7 +35,7 @@ public class BestFirst extends Algorithm {
                         if(!isPending(p)) {
                         addToPath(actual, p);
                         calculateTotalTime(actual,p);
-                        calculateHeuristic(actual, p, heuristic);
+                        calculateHeuristic(p, heuristic);
                         pendingPoints.add(p);
                     }
                  }
@@ -44,20 +46,20 @@ public class BestFirst extends Algorithm {
     }
 
 
-    private void calculateHeuristic(Point act, Point p, String heuristic) {
+    private void calculateHeuristic(Point next, String heuristic) {
         double result;
         switch (heuristic) {
-            case "time+distance":
-                result = h1(act, p);
-                p.setHeuristicVal(result);
+            case "diference+distance":
+                result = h1(next,end);
+                next.setHeuristicVal(result);
                 break;
             case "distance":
-                result = h2(act, p);
-                p.setHeuristicVal(result);
+                result = h2(next,end);
+                next.setHeuristicVal(result);
                 break;
             case "time":
-                result = h3(act, p);
-                p.setHeuristicVal(result);
+                result = h3(next, end);
+                next.setHeuristicVal(result);
                 break;
         }
     }

@@ -9,7 +9,7 @@ public class Data {
 
     public int getData(int x,int y){ return data[x][y];}
 
-    public char[][] getCharMap() {
+    char[][] getCharMap() {
         char[][]result = new char[this.getHeight()][this.getLength()];
         for (int x = 0; x < this.getHeight(); x++) {
             for (int y = 0; y < this.getHeight(); y++) {
@@ -20,6 +20,6 @@ public class Data {
         return result;
     }
     int getHeight(){return data.length;}
-    int getLength(){return data[0].length;}
+    private int getLength(){return data[0].length;}
 
 }

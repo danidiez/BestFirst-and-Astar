@@ -8,7 +8,7 @@ public class Point implements Comparable<Point>{
     private int val;
     private double heuristicVal;
     private ArrayList<Point> path;
-    private double time;
+    private double time,cost;
 
     public Point(int x, int y, int val){
         this.x = x;
@@ -18,6 +18,7 @@ public class Point implements Comparable<Point>{
         this.path.add(this);
         this.time = 0;
         this.heuristicVal = 0;
+        this.cost = 0;
     }
 
     public int getX() {
@@ -59,5 +60,11 @@ public class Point implements Comparable<Point>{
         if (this.heuristicVal > o.heuristicVal) return 1;
         else if (this.heuristicVal <= heuristicVal) return -1;
         return 0;
+    }
+    public double getCost(){
+        return cost;
+    }
+    public void setCost(double cost){
+        this.cost = cost;
     }
 }
