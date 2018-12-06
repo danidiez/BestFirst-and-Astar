@@ -37,8 +37,6 @@ public class Point implements Comparable<Point>{
         return this.path;
     }
 
-    public double getHeuristicVal() { return heuristicVal; }
-
     public double getTime() {
         return time;
     }
