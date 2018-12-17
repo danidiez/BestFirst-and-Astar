@@ -20,12 +20,12 @@ class Algorithm {
     double h1(Point p1,Point p2){
         double nextDx = p2.getX()-p1.getX();
         double nextDy = p2.getY()-p1.getY();
-        return (p2.getVal()-p1.getVal())+Math.sqrt(Math.pow(nextDx,2)+Math.pow(nextDy,2));
+        return calculateTime(p1,p2)+Math.sqrt(Math.pow(nextDx,2)+Math.pow(nextDy,2));
 }
     double h2(Point p1,Point p2){
         double nextDx = p2.getX() - p1.getX();
         double nextDy = p2.getY() - p1.getY();
-        return (Math.sqrt(Math.pow(nextDx,2)+Math.pow(nextDy,2)));
+        return (Math.sqrt(Math.pow(nextDx,2)+Math.pow(nextDy,2))/2);
     }
     double h3(Point p1,Point p2){
         return calculateTime(p1,p2);
